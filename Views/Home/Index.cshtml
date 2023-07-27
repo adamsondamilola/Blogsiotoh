@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (ViewBag.posts != null)
+{
+    <div class="text-center">
+        <h1 class="display-4">Blog</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                @foreach (var x in ViewBag.posts)
+                {
+
+                    <div class="col-md-4 mt-3">
+                        <h4>@x.Title</h4>
+                        @if (x.Image != null)
+                            {
+                        <div>
+                            <img class="img-fluid" src="~/Documents/@x.Image" />
+                        </div>
+                            }
+                        <div>
+                            <a href="/post/view/@x.PostId">
+                                @if (x.Content.Length > 30)
+                                {@x.Content.Substring(0, 30) }
+                            else
+                            { @x.Content} ...<i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+        <div class="col-md-4">
+            <h4 class="">More Posts (From API)</h4>
+            @if(ViewBag.apiPosts != null)
+            @foreach (var x in ViewBag.apiPosts)
+            {
+
+                <div class="col-md-12 mt-3">
+                    <h4>@x.Title</h4>
+                    <p>@x.DateCreated.ToLongDateString()</p>
+                    <div>
+                        <a href="/post/view/@x.PostId">
+                            @if (x.Content.Length > 30)
+                            {@x.Content.Substring(0, 30) }
+                        else
+                        { @x.Content} ...<i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        </div>
+        }
+        else
+        {
+        <div class="text-center">
+            <h1 class="display-4">Welcome</h1>
+            <p>No post yet!</p>
+        </div>
+        }
+
+
+

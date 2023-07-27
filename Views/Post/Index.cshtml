@@ -1,0 +1,90 @@
+﻿@model PostByDate
+@{
+    ViewData["Title"] = "My Posts";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+@if (ViewBag.posts != null)
+{
+
+    <h4>Sort by date</h4>
+    <div class="text-center">
+        <form role="form" asp-action="Index">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="DateFrom" class="control-label"></label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar fa-2x"></i></span>
+                            </div>
+                            <input asp-for="DateFrom" DataFormatString="{0:dd/MMM/yyyy}" class="form-control" type="date">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="DateTo" class="control-label"></label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar fa-2x"></i></span>
+                            </div>
+                            <input asp-for="DateTo" DataFormatString="{0:dd/MMM/yyyy}" class="form-control" type="date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (ViewBag.message != null)
+            {
+                <div class="alert alert-danger m-3">@ViewBag.message</div>
+            }
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary my-4">Filter Result</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Publication Date</th>
+                    <th>Details</th>
+                </tr>
+                @if (ViewBag.posts != null)
+                {
+                    @foreach (var x in ViewBag.posts)
+                    {
+                        <tr>
+                            <td>@x.Title</td>
+                            <td>@x.Content</td>
+                            <td>@x.DateCreated.ToShortDateString()</td>
+                            <td><a href="/post/view/@x.PostId"> <i class="fa fa-arrow-right"></i> </a> </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+
+
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p>No post yet!</p>
+    </div>
+}
+
+
+

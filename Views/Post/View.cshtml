@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Post";
+}
+<div class="row">
+<div class="col-md-8">
+    @if (ViewBag.posts != null)
+{
+    <div class="row">
+        @foreach (var x in ViewBag.posts)
+        {
+
+            <div class="col-md-12 mt-3">
+                <h4>@x.Title</h4>
+                <div>
+                    @if(x.Image != null) { 
+                    <img class="img-fluid" src="~/Documents/@x.Image" />
+                        }
+                </div>
+                <div class="article mt-3">@x.Content</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p>No post!</p>
+    </div>
+}
+    </div>
+
+<div class="col-md-4">
+    <div class="text-center">
+        <p>Recent Posts</p>
+    </div>
+    @if (ViewBag.recent != null)
+    {
+        @foreach (var x in ViewBag.recent)
+        {
+
+            <div class="col-md-12 mt-3">
+                <h4>@x.Title</h4>
+                @if (x.Image != null)
+                {
+                    <div style="height:150px; width:150px;">
+                        <img class="img-fluid" src="~/Documents/@x.Image" />
+                    </div>
+                }
+                <div>
+                    <a href="/post/view/@x.PostId">
+                        @if (x.Content.Length > 30)
+                        {@x.Content.Substring(0, 30) }
+                    else
+                    { @x.Content} ...<i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+    </div>
+
+
+

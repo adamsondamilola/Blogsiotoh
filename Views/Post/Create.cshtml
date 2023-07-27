@@ -1,0 +1,75 @@
+﻿@model Post
+@{
+
+    ViewData["Title"] = "Create Post";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="text-center">
+            <form role="form" asp-action="Create" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                    <label asp-for="Title" class="control-label"></label>
+                    <div class="input-group input-group-merge input-group-alternative">
+                        <input asp-for="Title" class="form-control" type="text">
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Content" class="control-label"></label>
+                    <div class="input-group input-group-merge input-group-alternative">
+                        <textarea class="form-control" asp-for="Content">
+                        </textarea>
+                    </div>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Image" class="control-label"></label>
+                    <div class="input-group input-group-merge input-group-alternative">
+                        <input asp-for="Image" class="form-control" type="file" accept="image/*">
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                @if (ViewBag.message != null && ViewBag.status != 1)
+                {
+                    <div class="alert alert-danger m-3">@ViewBag.message</div>
+                }
+
+                @if (ViewBag.message != null && ViewBag.status == 1)
+                {
+                    <div class="alert alert-success m-3">@ViewBag.message</div>
+                }
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary my-4">Create New Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Your recent posts</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Details</th>
+                </tr>
+                @if (ViewBag.recent != null)
+                {
+                    @foreach (var x in ViewBag.recent)
+                    {
+                        <tr>
+                            <td>@x.Title</td>
+                            <td><a href="/post/view/@x.PostId"> <i class="fa fa-arrow-right"></i> </a> </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+    </div>

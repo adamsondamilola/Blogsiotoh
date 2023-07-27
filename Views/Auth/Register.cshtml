@@ -1,0 +1,93 @@
+﻿@model SignUp
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Register";
+}
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="text-center">
+        <img class="img-fluid" src="~/images/auth.jpeg" />
+        </div>
+    </div>
+
+<div class="col-md-6">
+    <div class="text-center">
+        <form role="form" asp-action="Register">
+            <div class="form-group mb-3">
+                <label asp-for="FirstName" class="control-label"></label>
+                <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user fa-2x"></i></span>
+                    </div>
+                    <input asp-for="FirstName" class="form-control" type="text">
+                </div>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="LastName" class="control-label"></label>
+                <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user fa-2x"></i></span>
+                    </div>
+                    <input asp-for="LastName" class="form-control" type="text">
+                </div>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label"></label>
+                <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-envelope fa-2x"></i></span>
+                    </div>
+                    <input asp-for="Email" class="form-control" type="email">
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="control-label"></label>
+                <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-lock fa-2x"></i></span>
+                    </div>
+                    <input class="form-control" asp-for="Password">
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password2" class="control-label"></label>
+                <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-lock fa-2x"></i></span>
+                    </div>
+                    <input class="form-control" asp-for="Password2">
+                </div>
+                <span asp-validation-for="Password2" class="text-danger"></span>
+            </div>
+
+            @if (ViewBag.message != null) { 
+            <div class="alert alert-danger m-3">@ViewBag.message</div>
+                }
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary my-4">Create Account</button>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <span class="text-black-50"><small>Have an Account?</small></span>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a asp-controller="Auth" asp-action="Login" class="text-blue"><small>Sign In</small></a>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
